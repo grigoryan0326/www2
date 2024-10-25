@@ -1,0 +1,32 @@
+@import "../UI-variables.scss";
+@import "../../../styles/variables.scss";
+
+.container {
+  position: relative;
+  display: inline-flex;
+  .input {
+    min-width: 300px;
+    padding: 10px 15px;
+    padding-right: 40px;
+    border: 3px solid $color-light-gray;
+    border-radius: 10px;
+    outline: none;
+    font-size: $fz-small;
+    &:focus {
+      border-color: $color-yellow;
+    }
+  }
+  .close {
+    position: absolute;
+    font-size: 30px;
+    top: 50%;
+    right: 5px;
+    color: $color-yellow;
+    transform: translate(0, -50%);
+    cursor: pointer;
+    transition: $transition;
+    &.disabled {
+      color: $color-light-gray;
+    }
+  }
+}

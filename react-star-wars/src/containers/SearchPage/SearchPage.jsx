@@ -5,6 +5,7 @@ import { API_SEARCH } from "@constants/api"
 import { getPeopleId, getPeopleImage } from "@services/getPeopleData"
 import ErrorMessage from "@components/ErrorMessage/ErrorMessage"
 import SearchPageInfo from "@components/SearchPage/SearchPageInfo/SearchPageInfo"
+import UiInput from "@components/UI/UiInput/UiInput"
 import styles from "./SearchPage.module.scss"
 
 const SearchPage = () => {
@@ -12,9 +13,7 @@ const SearchPage = () => {
   const [people, setPeople] = useState([])
   const [error, setError] = useState(false)
 
-  const handleSearch = (e) => {
-    const value = e.target.value
-
+  const handleSearch = (value) => {
     setInputValue(value)
     debouncedGetResponse(value)
   }
@@ -47,12 +46,11 @@ const SearchPage = () => {
   return (
     <div className={styles.SearchPage}>
       <h1 className='header__text'>Search Page</h1>
-      <input
-        type='text'
+      <UiInput
         value={inputValue}
-        onChange={handleSearch}
-        className={styles.input}
-        placeholder="Chapter's name"
+        handleSearch={handleSearch}
+        placeholder='Search by name'
+        classes={styles.input__search}
       />
       {error ? <ErrorMessage /> : <SearchPageInfo people={people} />}
     </div>
