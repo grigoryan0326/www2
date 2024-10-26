@@ -1,4 +1,6 @@
+import video from "./Video/han-solo.mp4"
 import styles from "./ErrorMessage.module.scss"
+import UiVideo from "../UI/UiVideo/UiVideo"
 
 const ErrorMessage = () => {
   return (
@@ -8,6 +10,11 @@ const ErrorMessage = () => {
         We can't display data. <br />
         Come back when we fix everything.
       </p>
+      <UiVideo
+        src={video}
+        classes={styles.video}
+        playbackRate={1}
+      />
     </div>
   )
 }

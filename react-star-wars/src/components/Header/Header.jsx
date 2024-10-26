@@ -55,6 +55,9 @@ const Header = () => {
           <NavLink to='/search'>Search</NavLink>
         </li>
         <li className={styles.list__item}>
+          <NavLink to='/fail'>Fail</NavLink>
+        </li>
+        <li className={styles.list__item}>
           <NavLink to='/not-found'>Not Found</NavLink>
         </li>
       </ul>

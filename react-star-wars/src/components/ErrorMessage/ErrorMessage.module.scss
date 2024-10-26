@@ -1,6 +1,6 @@
-@import '@styles/variables.scss';
+@import "@styles/variables.scss";
 
-.text{
+.text {
   font-size: $fz-header;
   text-align: center;
   width: 600px;
@@ -11,6 +11,14 @@
   text-shadow: 0 0 2px $color-white;
 
   --webkit-text-stroke-color: $color-yellow;
-  --webkit-text-stroke-width: .5px;
+  --webkit-text-stroke-width: 0.5px;
   --webkit-text-fill-color: transparent;
+}
+
+.video {
+  display: block;
+  margin: 0 auto;
+  margin-top: $spacing-large;
+  border-radius: 10px;
+  box-shadow: $box-shadow-white;
 }

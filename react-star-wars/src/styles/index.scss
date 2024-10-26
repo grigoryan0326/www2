@@ -61,3 +61,28 @@ body {
   color: var(--header-color);
   transition: $transition;
 }
+
+/* ================ SCROLLBAR ================ */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $color-blue rgba($color: #000000, $alpha: 0.7);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-blue;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba($color: #000000, $alpha: 0.7);
+}
+
+::webkit-scrollbar-corner {
+  background: rgba($color: #000000, $alpha: 0.7);
+}
