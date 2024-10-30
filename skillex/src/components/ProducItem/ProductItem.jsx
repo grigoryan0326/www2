@@ -1,4 +1,5 @@
 import { FaStar } from "react-icons/fa6"
+import "./ProducItem.scss"
 
 const ProductItem = ({ products }) => {
   return (

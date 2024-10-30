@@ -1,0 +1,17 @@
+.products {
+  .products__title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 32px;
+    color: var(--color-primary);
+  }
+  .products__container {
+    margin-bottom: 100px;
+    .products__filters {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+  }
+}

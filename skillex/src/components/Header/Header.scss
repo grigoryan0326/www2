@@ -1,0 +1,24 @@
+.header {
+  width: 100%;
+  background: #ffffff;
+  padding-block: 10px;
+  .header__container {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    .header__logo {
+      height: 80%;
+    }
+    .header__title {
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--color-base);
+      @media screen and (max-width: 500px) {
+        display: none;
+      }
+    }
+  }
+}
