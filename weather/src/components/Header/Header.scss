@@ -1,0 +1,39 @@
+.header {
+  width: 100%;
+  padding: 20px;
+  background: rgb(0, 0, 183);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .header__form {
+    .header__input {
+      background: transparent;
+      color: black;
+      border-radius: 5px;
+      border: 1px solid black;
+      padding: 5px 10px;
+      transition: var(--transition);
+      &:focus {
+        border-color: white;
+        color: white;
+      }
+      &::placeholder {
+        color: black;
+        opacity: 0.4;
+      }
+    }
+    .header__btn {
+      background: transparent;
+      color: black;
+      border-radius: 5px;
+      border: 1px solid black;
+      padding: 5px 10px;
+      margin-left: 10px;
+      transition: var(--transition);
+      &:hover {
+        color: white;
+        border-color: white;
+      }
+    }
+  }
+}

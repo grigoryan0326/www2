@@ -1,0 +1,39 @@
+.weatherByDays {
+  padding: 20px;
+  margin-bottom: 100px;
+  .weatherByDays__title {
+    margin-bottom: 50px;
+    text-align: center;
+  }
+  .weatherByDays__days {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    .days__item {
+      cursor: pointer;
+      width: calc(100% / 5 - 40px);
+      text-align: center;
+      border: 1px solid white;
+      border-radius: 5px;
+      &.active {
+        border-color: black;
+        color: black;
+      }
+    }
+  }
+
+  .forcast {
+    display: flex;
+    gap: 20px;
+
+    .weatherByDays__forecast {
+      width: calc(100% / 8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .forecat__temp {
+      color: black;
+    }
+  }
+}

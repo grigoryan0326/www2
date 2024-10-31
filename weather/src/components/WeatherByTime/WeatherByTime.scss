@@ -1,0 +1,19 @@
+.weatherByTime {
+  .weatherByTime__title {
+    margin-bottom: 30px;
+  }
+  .weatherByTime__list {
+    .weatherByTime__item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      .weatherByTime__temp {
+        color: black;
+      }
+      .weatherByTime__icon {
+        height: 40px;
+        width: 40px;
+      }
+    }
+  }
+}

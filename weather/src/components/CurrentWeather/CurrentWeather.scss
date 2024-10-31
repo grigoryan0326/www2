@@ -1,0 +1,23 @@
+.current-weather {
+  padding: 20px;
+  margin-block: 50px;
+  .current-weather__container {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    align-items: center;
+  }
+  .current-weather__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .current-weather__title {
+      font-size: 36px;
+    }
+    .current-weather__temp,
+    .current-weather__desc {
+      font-weight: 600;
+      font-size: 28px;
+    }
+  }
+}

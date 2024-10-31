@@ -1,0 +1,24 @@
+.unit-toggle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  button {
+    width: 40px;
+    padding: 5px 10px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: var(--transition);
+    color: white;
+    border-radius: 5px;
+
+    &.active {
+      background-color: #007bff;
+      opacity: 1;
+    }
+
+    &:hover {
+      background-color: #007bff;
+    }
+  }
+}
