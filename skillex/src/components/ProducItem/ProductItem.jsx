@@ -1,11 +1,12 @@
 import { FaStar } from "react-icons/fa6"
+
 import "./ProducItem.scss"
 
-const ProductItem = ({ products }) => {
+const ProductItem = ({ filtered, sorted }) => {
   return (
     <ul className='products__list'>
-      {products.length ? (
-        products.map((product) => (
+      {sorted.length ? (
+        sorted.map((product) => (
           <li
             className='product__item'
             key={product.id}
@@ -27,7 +28,7 @@ const ProductItem = ({ products }) => {
           </li>
         ))
       ) : (
-        <p>Nothing to show</p>
+        <p className='products__empty'>Nothing to show.</p>
       )}
     </ul>
   )

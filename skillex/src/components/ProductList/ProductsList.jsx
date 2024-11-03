@@ -1,25 +1,21 @@
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+
 import ProductItem from "../ProducItem/ProductItem"
 import Loader from "../UI/Loader/Loader"
 import Sort from "../Sort/Sort"
 import Filters from "../Filters/Filters"
+
 import "./ProductList.scss"
 
 const RESOURCE__URL = "https://672110b898bbb4d93ca7503b.mockapi.io/goods/Goods"
 
-// {
-//   "id": 1,
-//   "name": "Wireless Headphones",
-//   "category": "Electronics",
-//   "brand": "Brand A",
-//   "price": 99.99,
-//   "rating": 4.5,
-//   "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZXenJCadtAskhqhmd2sX7oAoZBkfNhFDtlQ&s"
-//   },
-
 const ProductsList = () => {
   const [products, setProducts] = useState([])
   const [isLoading, setIsloading] = useState(false)
+
+  const filtered = useSelector((state) => state.filters.filteredProducts)
+  const sorted = useSelector((state) => state.filters.sortedProducts)
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -50,7 +46,10 @@ const ProductsList = () => {
             <Filters products={products} />
             <Sort />
           </div>
-          <ProductItem products={products} />{" "}
+          <ProductItem
+            filtered={filtered}
+            sorted={sorted}
+          />{" "}
         </div>
       )}
     </section>

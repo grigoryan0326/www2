@@ -15,6 +15,7 @@ test.css
 /node_modules
 /.pnp
 .pnp.js
+/weather
 
 # testing
 /coverage
