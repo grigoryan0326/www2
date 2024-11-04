@@ -15,17 +15,11 @@ const Sort = () => {
   const sortOption = useSelector((state) => state.filters.sortOption)
   const dispatch = useDispatch()
 
-  const handleSortChange = (option) => {
-    dispatch(setSortOption(option))
-    sortProducts(option)
-    setIsOpen(false)
-  }
-
   const sortProducts = useCallback(
     (option) => {
       let sortedProducts
 
-      switch (option) {
+      switch (option.toLowerCase()) {
         case "price-asc":
           sortedProducts = [...filteredProducts].sort(
             (a, b) => a.price - b.price
@@ -50,6 +44,15 @@ const Sort = () => {
     [dispatch, filteredProducts]
   )
 
+  const handleSortChange = useCallback(
+    (option) => {
+      dispatch(setSortOption(option))
+      sortProducts(option)
+      setIsOpen(false)
+    },
+    [dispatch, sortProducts]
+  )
+
   useEffect(() => {
     sortProducts(sortOption)
   }, [filteredProducts, sortOption, sortProducts])
@@ -60,32 +63,37 @@ const Sort = () => {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <button className='sort__btn'>
+      <button
+        className='sort__btn'
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
         <FaSort className='sort__icon' /> Sort: {sortOption}
       </button>
       {isOpen && (
         <ul className='sort__options'>
           <li
-            onClick={() => handleSortChange("default")}
+            onClick={() => handleSortChange("Default")}
             className={sortOption.toLowerCase() === "default" ? "active" : ""}
           >
             Default
           </li>
           <li
-            onClick={() => handleSortChange("price-asc")}
-            className={sortOption === "price-asc" ? "active" : ""}
+            onClick={() => handleSortChange("Price-asc")}
+            className={sortOption.toLowerCase() === "price-asc" ? "active" : ""}
           >
             Price: ascending
           </li>
           <li
-            onClick={() => handleSortChange("price-desc")}
-            className={sortOption === "price-desc" ? "active" : ""}
+            onClick={() => handleSortChange("Price-desc")}
+            className={
+              sortOption.toLowerCase() === "price-desc" ? "active" : ""
+            }
           >
             Price: descending
           </li>
           <li
-            onClick={() => handleSortChange("rating")}
-            className={sortOption === "rating" ? "active" : ""}
+            onClick={() => handleSortChange("Rating")}
+            className={sortOption.toLowerCase() === "rating" ? "active" : ""}
           >
             Rating
           </li>

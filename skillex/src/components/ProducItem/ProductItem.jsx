@@ -1,8 +1,9 @@
+import React from "react"
 import { FaStar } from "react-icons/fa6"
 
 import "./ProducItem.scss"
 
-const ProductItem = ({ filtered, sorted }) => {
+const ProductItem = React.memo(({ sorted }) => {
   return (
     <ul className='products__list'>
       {sorted.length ? (
@@ -23,14 +24,15 @@ const ProductItem = ({ filtered, sorted }) => {
                 <FaStar className='product__star' />
                 {product.rating}
               </p>
-              <p className='product__btn'>Add to Cart</p>
+              <button className='product__btn'>Add to Cart</button>
             </div>
           </li>
         ))
       ) : (
-        <p className='products__empty'>Nothing to show.</p>
+        <p className='products__empty'>Nothing to show :(</p>
       )}
     </ul>
   )
-}
+})
+
 export default ProductItem

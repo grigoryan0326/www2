@@ -8,7 +8,7 @@ const initialState = {
   selectedBrands: [],
   selectedRating: false,
   minPrice: 0,
-  maxPrice: 0,
+  maxPrice: 1000,
   sortOption: "default",
 }
 

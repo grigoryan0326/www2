@@ -1,4 +1,5 @@
 import logo from "../../assets/skillexLogo.svg"
+
 import "./Header.scss"
 
 const Header = () => {

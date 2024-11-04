@@ -12,6 +12,7 @@ import {
   setSelectedRating,
   setMinPrice,
   setMaxPrice,
+  setSortOption,
 } from "../../store/filtersSlice"
 
 import Switch from "../UI/Switch/Switch"
@@ -19,7 +20,7 @@ import CheckBox from "../UI/CheckBox/CheckBox"
 
 import "./Filters.scss"
 
-const Filter = ({ products, filtered }) => {
+const Filters = ({ products, filtered }) => {
   const dispatch = useDispatch()
   const {
     selectedCategories,
@@ -33,24 +34,29 @@ const Filter = ({ products, filtered }) => {
 
   const [filterOpen, setFilterOpen] = useState(false)
 
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState(searchQuery || "")
   const [categories, setCategories] = useState([])
   const [brands, setBrands] = useState([])
-  const [priceRange, setPriceRange] = useState({})
+  const [priceRange, setPriceRange] = useState({
+    minPrice: minPrice || 1,
+    maxPrice: maxPrice || 10000,
+    defaultMinPrice: 0,
+    defaultMaxPrice: 10000,
+  })
 
   useEffect(() => {
-    const productsPrices = products.map((product) => product.price)
-    const minPrice = Math.min(...productsPrices)
-    const maxPrice = Math.max(...productsPrices)
-
-    dispatch(setMaxPrice(maxPrice))
-    dispatch(setMinPrice(minPrice))
-    setPriceRange({
-      defaultMinPrice: minPrice,
-      defaultMaxPrice: maxPrice,
-      minPrice,
-      maxPrice,
-    })
+    if (products.length) {
+      const productsPrices = products.map((product) => product.price)
+      const minPrice = Math.min(...productsPrices)
+      const maxPrice = Math.max(...productsPrices)
+      dispatch(setMaxPrice(maxPrice))
+      dispatch(setMinPrice(minPrice))
+      setPriceRange((prevState) => ({
+        ...prevState,
+        defaultMinPrice: minPrice,
+        defaultMaxPrice: maxPrice,
+      }))
+    }
 
     const productsCategories = products.map((product) => product.category)
     const uniqueCategories = [...new Set(productsCategories)]
@@ -69,23 +75,29 @@ const Filter = ({ products, filtered }) => {
     return () => clearTimeout(delayDebounceFn)
   }, [searchTerm, dispatch])
 
-  const handleSearch = (e) => {
+  const handleSearch = useCallback((e) => {
     setSearchTerm(e.target.value)
-  }
+  }, [])
 
-  const handleCategoryChange = (category) => {
-    const updatedCategories = selectedCategories.includes(category)
-      ? selectedCategories.filter((cat) => cat !== category)
-      : [...selectedCategories, category]
-    dispatch(setSelectedCategories(updatedCategories))
-  }
+  const handleCategoryChange = useCallback(
+    (category) => {
+      const updatedCategories = selectedCategories.includes(category)
+        ? selectedCategories.filter((cat) => cat !== category)
+        : [...selectedCategories, category]
+      dispatch(setSelectedCategories(updatedCategories))
+    },
+    [selectedCategories, dispatch]
+  )
 
-  const handleBrandChange = (brand) => {
-    const updatedBrands = selectedBrands.includes(brand)
-      ? selectedBrands.filter((b) => b !== brand)
-      : [...selectedBrands, brand]
-    dispatch(setSelectedBrands(updatedBrands))
-  }
+  const handleBrandChange = useCallback(
+    (brand) => {
+      const updatedBrands = selectedBrands.includes(brand)
+        ? selectedBrands.filter((b) => b !== brand)
+        : [...selectedBrands, brand]
+      dispatch(setSelectedBrands(updatedBrands))
+    },
+    [selectedBrands, dispatch]
+  )
 
   const handleSelectedChange = useCallback(() => {
     dispatch(setSelectedRating(!selectedRating))
@@ -99,11 +111,14 @@ const Filter = ({ products, filtered }) => {
     return () => clearTimeout(delayDebounceFn)
   }, [priceRange.minPrice, dispatch])
 
-  const handleMinPriceChange = (e) => {
-    if (e.target.value === "") {
-      setPriceRange({ ...priceRange, minPrice: "" })
-    } else setPriceRange({ ...priceRange, minPrice: Number(e.target.value) })
-  }
+  const handleMinPriceChange = useCallback(
+    (e) => {
+      if (e.target.value === "") {
+        setPriceRange({ ...priceRange, minPrice: "" })
+      } else setPriceRange({ ...priceRange, minPrice: Number(e.target.value) })
+    },
+    [priceRange, setPriceRange]
+  )
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -113,11 +128,14 @@ const Filter = ({ products, filtered }) => {
     return () => clearTimeout(delayDebounceFn)
   }, [priceRange.maxPrice, dispatch])
 
-  const handleMaxPriceChange = (e) => {
-    if (e.target.value === "") {
-      setPriceRange({ ...priceRange, maxPrice: "" })
-    } else setPriceRange({ ...priceRange, maxPrice: Number(e.target.value) })
-  }
+  const handleMaxPriceChange = useCallback(
+    (e) => {
+      if (e.target.value === "") {
+        setPriceRange({ ...priceRange, maxPrice: "" })
+      } else setPriceRange({ ...priceRange, maxPrice: Number(e.target.value) })
+    },
+    [priceRange, setPriceRange]
+  )
 
   const handleFiltersReset = () => {
     dispatch(setSearchQuery(""))
@@ -126,6 +144,8 @@ const Filter = ({ products, filtered }) => {
     dispatch(setSelectedRating(false))
     dispatch(setMinPrice(priceRange?.defaultMinPrice))
     dispatch(setMaxPrice(priceRange?.defaultMaxPrice))
+
+    dispatch(setSortOption("Default"))
 
     setSearchTerm("")
     setPriceRange({
@@ -140,12 +160,12 @@ const Filter = ({ products, filtered }) => {
     const filteredProducts = products
       .filter(
         (product) =>
-          selectedCategories.length === 0 ||
-          selectedCategories.includes(product.category)
+          selectedCategories?.length === 0 ||
+          selectedCategories?.includes(product.category)
       )
       .filter(
         (product) =>
-          selectedBrands.length === 0 || selectedBrands.includes(product.brand)
+          selectedBrands?.length === 0 || selectedBrands.includes(product.brand)
       )
       .filter(
         (product) => product.price >= minPrice && product.price <= maxPrice
@@ -170,7 +190,7 @@ const Filter = ({ products, filtered }) => {
   ])
 
   return (
-    <section className='filter__container container'>
+    <section className='filter__container'>
       <button
         className='filter__btn btn__primary'
         onClick={() => setFilterOpen(!filterOpen)}
@@ -309,4 +329,4 @@ const Filter = ({ products, filtered }) => {
   )
 }
 
-export default Filter
+export default Filters

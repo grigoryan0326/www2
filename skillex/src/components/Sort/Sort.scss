@@ -8,10 +8,11 @@
     color: var(--color-primary);
     border: 1px solid transparent;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     gap: 10px;
     align-items: center;
+    justify-content: center;
     transition: all 0.4s;
     white-space: nowrap;
     min-width: 215px;
@@ -39,11 +40,9 @@
       cursor: pointer;
       transition: all 0.4s;
       white-space: nowrap;
-
       &.active {
         color: var(--color-primary);
       }
-
       &:hover {
         color: var(--color-primary);
       }
